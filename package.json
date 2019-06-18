@@ -1,6 +1,6 @@
 {
   "name": "hidraw-native",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "N-API native node module to export constants from 'hidraw.h'",
   "main": "index.js",
   "browser": "browser.js",
