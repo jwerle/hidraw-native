@@ -1,7 +1,8 @@
 hidraw-native
 =============
 
-N-API native node module to export constants from `linux/hidraw.h`
+N-API native node module to export constants from `linux/hidraw.h` (and
+`linux/hid.h`).
 
 ## Installation
 
@@ -19,7 +20,10 @@ const { HIDIOCGRDESCSIZE } = require('hidraw-native')
 
 The following constants are exported:
 
-_**From `hidraw.h`:**_
+* `HIDRAW_REPORT_DESCRIPTOR_BYTES` (`sizeof(struct hidraw_report_descriptor)`)
+* `HIDRAW_DEVINFO_BYTES` (`sizeof(struct hidraw_devinfo)`)
+
+_**From `linux/hidraw.h`:**_
 
 * `HIDIOCGRDESCSIZE`
 * `HIDIOCGRAWINFO`
@@ -27,7 +31,7 @@ _**From `hidraw.h`:**_
 * `HIDRAW_FIRST_MINOR`
 * `HIDRAW_MAX_DEVICES`
 
-_**From `hid.h`:**_
+_**From `linux/hid.h`:**_
 
 * `HID_REQ_GET_REPORT`
 * `HID_REQ_GET_IDLE`
