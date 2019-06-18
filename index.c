@@ -4,12 +4,12 @@
 
 #ifndef _WIN32
 #include <sys/ioctl.h>
-#include <linux/hid.h>
-#include <linux/hidraw.h>
 #endif
 
-// taken from 'linux/hidraw.h' and 'linux/hid.h'
-#ifdef _WIN32
+#ifdef __linux
+#include <linux/hid.h>
+#include <linux/hidraw.h>
+#else
 
 // ioctl
 #define HIDIOCGRDESCSIZE 0
@@ -54,7 +54,6 @@
 })
 
 NAPI_INIT() {
-#ifndef _WIN32
   // ioctl
   EXPORT_CONSTANT(HIDIOCGRDESCSIZE);
   EXPORT_CONSTANT(HIDIOCGRAWINFO);
@@ -75,5 +74,4 @@ NAPI_INIT() {
   EXPORT_CONSTANT(HID_DT_REPORT);
   EXPORT_CONSTANT(HID_DT_PHYSICAL);
   EXPORT_CONSTANT(HID_MAX_DESCRIPTOR_SIZE);
-#endif
 }
