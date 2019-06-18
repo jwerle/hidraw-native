@@ -9,7 +9,14 @@
 #ifdef __linux
 #include <linux/hid.h>
 #include <linux/hidraw.h>
+
+#define HIDRAW_REPORT_DESCRIPTOR_BYTES sizeof(struct hidraw_report_descriptor)
+#define HIDRAW_DEVINFO_BYTES sizeof(struct hidraw_devinfo)
+
 #else
+
+#define HIDRAW_REPORT_DESCRIPTOR_BYTES 0
+#define HIDRAW_DEVINFO_BYTES 0
 
 // ioctl
 #define HIDIOCGRDESCSIZE 0
@@ -54,6 +61,10 @@
 })
 
 NAPI_INIT() {
+  // sizeof()
+  EXPORT_CONSTANT(HIDRAW_REPORT_DESCRIPTOR_BYTES);
+  EXPORT_CONSTANT(HIDRAW_DEVINFO_BYTES);
+
   // ioctl
   EXPORT_CONSTANT(HIDIOCGRDESCSIZE);
   EXPORT_CONSTANT(HIDIOCGRAWINFO);
