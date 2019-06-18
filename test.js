@@ -1,8 +1,14 @@
 const hidraw = require('./')
 const test = require('tape')
+const os = require('os')
+
+const PLATFORM = os.platform()
+const LINUX = 'linux'
 
 test('constants', (t) => {
   const constants = {
+    HIDRAW_REPORT_DESCRIPTOR_BYTES: -1,
+    HIDRAW_DEVINFO_BYTES: -1,
     HIDIOCGRDESCSIZE: -1,
     HIDIOCGRAWINFO: -1,
     HIDIOCGRDESC: -1,
@@ -22,9 +28,22 @@ test('constants', (t) => {
 
   for (const k in hidraw) {
     if (k in constants) {
-      t.ok(hidraw[k] >= 0, `Constant '${k}' is unsigned integer`)
+      if (LINUX === PLATFORM) {
+        t.ok(hidraw[k] >= 0, `Constant '${k}' is unsigned integer`)
+      } else {
+        t.ok(0 === hidraw[k], `Constant '${k}' is 0`)
+      }
+
       constants[k] = hidraw[k]
     }
+  }
+
+  if (LINUX === PLATFORM) {
+    t.ok(hidraw.HIDRAW_REPORT_DESCRIPTOR_BYTES > 0,
+      'HIDRAW_REPORT_DESCRIPTOR_BYTES')
+
+    t.ok(hidraw.HIDRAW_DEVINFO_BYTES > 0,
+      'HIDRAW_DEVINFO_BYTES')
   }
 
   for (const k in constants) {
