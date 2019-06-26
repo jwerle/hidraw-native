@@ -47,7 +47,7 @@
 #define EXPORT_CONSTANT(name) ({              \
   napi_value name##_value;                    \
                                               \
-  napi_create_int64(                          \
+  napi_create_uint64(                         \
     env,                                      \
     name,                                     \
     &name##_value);                           \
